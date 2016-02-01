@@ -74,5 +74,12 @@
         "tmp": ".tmp"
       }
     }
+  },
+  "generator-gulp-angular-subtask": {
+    "props": {
+      "language": "coffee",
+      "style": "sass",
+      "html": "jade"
+    }
   }
 }
