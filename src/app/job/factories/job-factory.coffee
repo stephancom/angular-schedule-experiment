@@ -5,7 +5,7 @@
 # @name scheduler.job
 # @description
 # # job
-# Factory in the scheduler.
+# Represents a single job
 ###
 angular.module('scheduler')
 .factory 'Job', ->

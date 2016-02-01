@@ -1,4 +1,5 @@
 angular.module 'scheduler'
+  # missing: jobStorageFactory
   .controller 'MainController', ($timeout, Job, webDevTec, toastr) ->
     'ngInject'
     vm = this
@@ -30,6 +31,31 @@ angular.module 'scheduler'
       return
 
 
+    # vm.jobs = jobStorageFactory.getjobs()
+
+    # if vm.jobs == []
+    #   vm.jobs = [
+    #     new Job(command: "Test Job One")
+    #     new Job(command: "Test Job Two", dyno_size: Job.DYNO_SIZES.slice(-1)[0], frequency: Job.FREQUENCIES.slice(-1)[0])
+    #   ]
+
+    # vm.count = vm.jobs.length
+
+    # vm.addJob = ->
+    #   vm.jobs.push(
+    #     new Job(command: vm.command, dyno_size: vm.dyno_size, frequency: vm.frequency)
+    #   )
+    #   jobStorageFactory.updatejobs vm.jobs
+    #   vm.command = ''
+    #   vm.dyno_size = Job.DYNO_SIZES[0]
+    #   vm.frequency = Job.FREQUENCIES[0]
+    #   vm.count = vm.jobs.length
+
+    # vm.deleteJob = (job) ->
+    #   vm.jobs.splice vm.jobs.indexOf(job), 1
+    #   jobStorageFactory.updatejobs vm.jobs
+    #   vm.count = vm.jobs.length
+
     vm.awesomeThings = []
     getJobs()
     vm.dyno_sizes = Job.DYNO_SIZES
@@ -37,4 +63,3 @@ angular.module 'scheduler'
     vm.creationDate = 1453535716432
     vm.showToastr = showToastr
     activate()
-    return
