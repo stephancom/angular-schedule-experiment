@@ -14,7 +14,7 @@
 # Handles local storage of the list of jobs
 ###
 angular.module('scheduler')
-.factory 'jobStorageFactory', (localStorageService) ->
+.factory 'jobStorageFactory', (localStorageService, Job) ->
   jobList = {}
   {
     list: jobList
