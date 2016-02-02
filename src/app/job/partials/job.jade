@@ -28,7 +28,7 @@ form(role='form' ng-hide="showJobEditor")
       .row
         .col-xs-12
           button.btn.btn-primary(ng-click="showJobEditor=!showJobEditor") Edit
-          button.btn.btn-link(aria-label='remove' ng-click='remove()' ng-confirm-click="Are you sure you want to remove this job?") Remove
+          button.btn.btn-link(aria-label='remove' ng-click='removeJob()' ng-confirm-click="Are you sure you want to remove this job?") Remove
 
 form(role='form' ng-submit='editJob()' ng-show="showJobEditor")
   .panel.panel-primary

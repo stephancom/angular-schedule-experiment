@@ -20,7 +20,5 @@ angular.module('scheduler')
   templateUrl: 'app/job/partials/job.html'
   restrict: 'E'
   link: (scope, element, attrs) ->
-    scope.remove = ->
-      scope.removeJob(scope.job)
     scope.dyno_sizes = Job.DYNO_SIZES
     scope.frequencies = Job.FREQUENCIES
