@@ -6,12 +6,12 @@
 # # job
 ###
 angular.module('scheduler')
-.directive('schedulerJob', ->
+.directive 'schedulerJob', (Job, moment) ->
+  'ngInject'
   scope:
     job: '=job'
   templateUrl: 'app/job/partials/job.html'
-  # template: '<div></div>'
   restrict: 'E'
-  # link: (scope, element, attrs) ->
-  #   element.text 'this is the job directive'
-)
+  link: (scope, element, attrs) ->
+    scope.dyno_sizes = Job.DYNO_SIZES
+    scope.frequencies = Job.FREQUENCIES
