@@ -37,7 +37,10 @@ angular.module('scheduler')
       @last_run ?= Date.now()
 
     next_due: ->
-      moment(@last_run).add(@frequency, 'm')
+      # moment(@last_run).add(@frequency, 'm')
+
+      # a fancy way to fake the next run time.
+      moment(@last_run).add(Math.ceil((Date.now() - @last_run) / moment.duration(@frequency, 'minutes'))*@frequency, 'm')
 
     last_run_date: ->
       moment.utc(@last_run).format('MMM D H:mm UTC')
