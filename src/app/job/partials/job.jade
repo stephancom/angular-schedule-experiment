@@ -29,7 +29,7 @@ form(ng-hide="editJob")
       .row
         .col-xs-12
           button.btn.btn-primary(ng-click="editJob=!editJob") Edit
-          button.btn.btn-link Remove
+          button.btn.btn-link(ng-confirm-click="Are you sure you want to remove this job?") Remove
 
 form(ng-show="editJob")
   .panel.panel-primary
