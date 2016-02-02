@@ -23,6 +23,10 @@ angular.module('scheduler')
         localStorageService.set 'jobs', angular.toJson(jobsArr)
       jobList = jobsArr
     getjobs: ->
-      jobList = angular.fromJson(localStorageService.get('jobs'))
-      if jobList then jobList else []
+      jobs = angular.fromJson(localStorageService.get('jobs'))
+      jobList = []
+      # it would be nice to use _.map() here.  Alas.
+      for job in jobs
+        jobList.push( new Job(job) )
+      jobList
   }
