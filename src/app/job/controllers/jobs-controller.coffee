@@ -13,7 +13,7 @@
 # Controller of the scheduler
 ###
 angular.module('scheduler')
-.controller 'jobsCtrl', (jobStorageFactory, Job, $log) ->
+.controller 'jobsCtrl', (jobStorageFactory, Job) ->
   'ngInject'
   vm = this
 
