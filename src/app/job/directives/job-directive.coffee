@@ -16,9 +16,14 @@ angular.module('scheduler')
   'ngInject'
   scope:
     job: '=job'
+    editJob: '&'
     removeJob: '&'
   templateUrl: 'app/job/partials/job.html'
   restrict: 'E'
   link: (scope, element, attrs) ->
+    scope.edit = (valid) ->
+      if(valid)
+        scope.showJobEditor = false
+        scope.editJob()
     scope.dyno_sizes = Job.DYNO_SIZES
     scope.frequencies = Job.FREQUENCIES

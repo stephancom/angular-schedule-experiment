@@ -30,14 +30,17 @@ form(role='form' ng-hide="showJobEditor")
           button.btn.btn-primary(ng-click="showJobEditor=!showJobEditor") Edit
           button.btn.btn-link(aria-label='remove' ng-click='removeJob()' ng-confirm-click="Are you sure you want to remove this job?") Remove
 
-form(role='form' ng-submit='editJob()' ng-show="showJobEditor")
+form(role='form' name="editJobForm" ng-submit='edit(editJobForm.$valid)' ng-show="showJobEditor" novalidate)
   .panel.panel-primary
     .panel-body
       .row
         .col-xs-12
-          .input-group
-            .input-group-addon $
-            input.form-control(type='text' placeholder='rake do_something' id='command' ng-model='job.command' required=true)
+          .form-group(ng-class="{'has-error': editJobForm.command.$invalid}")
+            .input-group
+              .input-group-addon $
+              input.form-control(type='text' placeholder='rake do_something' id='command' ng-model='job.command' required)
+            p.help-block(ng-show="editJobForm.command.$invalid && !editJobForm.command.$pristine") cannot be blank
+
       hr
       .row
         .col-md-3.col-sm-3.col-xs-6
@@ -59,5 +62,5 @@ form(role='form' ng-submit='editJob()' ng-show="showJobEditor")
     .panel-footer
       .row
         .col-xs-12
-          input.btn.btn-primary(type='submit' value='Save')
+          input.btn.btn-primary(type='submit' value='Save' ng-disabled="editJobForm.$invalid")
           button.btn.btn-link(ng-click="showJobEditor=!showJobEditor") Cancel

@@ -41,11 +41,8 @@ angular.module('scheduler')
     jobStorageFactory.updatejobs vm.jobs
     vm.count = vm.jobs.length
 
-  vm.editJob = (job) ->
-    # TODO
-    job.command = vm.command
-    job.dyno_size = vm.dyno_size
-    job.frequency = vm.frequency
+  vm.editJob = (jobIndex, job) ->
+    vm.jobs[jobIndex] = job
     jobStorageFactory.updatejobs vm.jobs
     vm.count = vm.jobs.length
 
