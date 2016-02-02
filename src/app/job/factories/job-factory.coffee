@@ -14,7 +14,7 @@
 # Represents a single job
 ###
 angular.module('scheduler')
-.factory 'Job', (moment) ->
+.factory 'Job', (moment, $log) ->
   'ngInject'
   class Job
     @DYNO_SIZES = [
@@ -32,20 +32,21 @@ angular.module('scheduler')
     dyno_size: Job.DYNO_SIZES[0].value
     frequency: Job.FREQUENCIES[0].value
     last_run: null
-    next_due: Date.now()
 
-    constructor: ({@command = '', @dyno_size = Job.DYNO_SIZES[0].value, @frequency = Job.FREQUENCIES[0].value, @last_run, @next_due}) ->
-      @last_run = Date.now()
-      @next_due = Date.now()
+    constructor: ({@command = '', @dyno_size = Job.DYNO_SIZES[0].value, @frequency = Job.FREQUENCIES[0].value, @last_run}) ->
+      @last_run ?= Date.now()
       # @dyno_size = @dyno_size || Job.DYNO_SIZES[0].value
       # @frequency = @frequency || Job.FREQUENCIES[0].value
       # @last_run = null
+
+    next_due: ->
+      moment(@last_run).add(@frequency, 'm')
 
     last_run_date: ->
       moment.utc(@last_run).format('MMM D H:mm UTC')
 
     next_due_date: ->
-      moment.utc(@next_due).format('MMM D H:mm UTC')
+      moment.utc(@next_due()).format('MMM D H:mm UTC')
 
     # sorry, buddy, no lodash here! (well, not easily)
     # coffeescript comprehensions to the rescue
