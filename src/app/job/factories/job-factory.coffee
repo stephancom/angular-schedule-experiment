@@ -31,28 +31,19 @@ angular.module('scheduler')
     command: ''
     dyno_size: Job.DYNO_SIZES[0].value
     frequency: Job.FREQUENCIES[0].value
-    @created_on: null
+    last_run: null
 
-    constructor: ({@command = '', @dyno_size = Job.DYNO_SIZES[0].value, @frequency = Job.FREQUENCIES[0].value, @created_on}) ->
-      @created_on ?= moment().subtract(4, 'days')
-
-    reps: ->
-      return 0 unless @created_on?
-      Math.floor((Date.now() - @created_on) / moment.duration(@frequency, 'minutes'))
-
-    last_run: ->
-      moment(@created_on).add(@reps()*@frequency, 'minutes')
-      @created_on
+    constructor: ({@command = '', @dyno_size = Job.DYNO_SIZES[0].value, @frequency = Job.FREQUENCIES[0].value, @last_run}) ->
+      @last_run ?= Date.now()
 
     next_due: ->
-      moment(@created_on).add(@reps()+1*@frequency, 'minutes')
+      # moment(@last_run).add(@frequency, 'm')
+
+      # a fancy way to fake the next run time.
+      moment(@last_run).add(Math.ceil((Date.now() - @last_run) / moment.duration(@frequency, 'minutes'))*@frequency, 'm')
 
     last_run_date: ->
-      if @reps() < 1
-        "never"
-      else
-        moment.utc(@last_run()).format('MMM D H:mm UTC')
-      # @reps()
+      moment.utc(@last_run).format('MMM D H:mm UTC')
 
     next_due_date: ->
       moment.utc(@next_due()).format('MMM D H:mm UTC')
