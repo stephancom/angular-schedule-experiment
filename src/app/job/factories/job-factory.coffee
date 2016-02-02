@@ -34,7 +34,7 @@ angular.module('scheduler')
     last_run: null
     next_due: Date.now()
 
-    constructor: ({@command, @dyno_size = Job.DYNO_SIZES[0].value, @frequency = Job.FREQUENCIES[0].value, @last_run, @next_due}) ->
+    constructor: ({@command = '', @dyno_size = Job.DYNO_SIZES[0].value, @frequency = Job.FREQUENCIES[0].value, @last_run, @next_due}) ->
       @last_run = Date.now()
       @next_due = Date.now()
       # @dyno_size = @dyno_size || Job.DYNO_SIZES[0].value

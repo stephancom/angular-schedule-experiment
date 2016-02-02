@@ -5,5 +5,39 @@
     .col-sm-12(ng-repeat="job in jobs.jobs")
       scheduler-job(job="job")
     
-    .col-sm-12
-      button.btn.btn-primary.btn-lg.btn-block(type=button) Add new job
+    //- I kind of don't like having the form here (more or less) duplicated from the one in job.jade
+    //- I could and should probably share it.
+    .col-sm-12(ng-show="jobs.showNewJobForm")
+      form(role='form' name="jobs.form" ng-submit='jobs.addJob()')
+        .panel.panel-primary
+          .panel-body
+            .row
+              .col-xs-12
+                .input-group
+                  .input-group-addon $
+                  input.form-control(type='text' placeholder='rake do_something' id='command' ng-model='jobs.newJob.command' required=true)
+            hr
+            .row
+              .col-md-3.col-sm-3.col-xs-6
+                .form-group
+                  label.text-uppercase(for='dyno_size') Dyno Size
+                  select.form-control(id='dyno_size' ng-model='jobs.newJob.dyno_size' ng-options='s.value as s.label for s in jobs.dyno_sizes')
+              .col-md-3.col-sm-3.col-xs-6
+                .form-group
+                  label.text-uppercase(for='frequency') Frequency
+                  select.form-control(id='frequency' ng-model='jobs.newJob.frequency' ng-options='f.value as f.label for f in jobs.frequencies')
+              .col-md-3.col-sm-3.col-xs-6
+                .form-group
+                  label.text-uppercase(for='last_run') Last run
+                  p.form-control-static= '{{ jobs.newJob.last_run_date() }}'
+              .col-md-3.col-sm-3.col-xs-6
+                .form-group
+                  label.text-uppercase(for='next_due') Next due
+                  p.form-control-static= '{{ jobs.newJob.next_due_date() }}'
+          .panel-footer
+            .row
+              .col-xs-12
+                input.btn.btn-primary(type='submit' value="Save")
+                button.btn.btn-link(ng-click="jobs.showNewJobForm=!jobs.showNewJobForm") Cancel
+    .col-sm-12(ng-hide="jobs.showNewJobForm")
+      button.btn.btn-primary.btn-lg.btn-block(type='button' ng-click='jobs.showNewJobForm=!jobs.showNewJobForm') Add new job
