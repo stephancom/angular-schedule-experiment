@@ -17,13 +17,13 @@ angular.module('scheduler')
   'ngInject'
   vm = this
 
-  # vm.jobs = jobStorageFactory.getjobs()
+  vm.jobs = jobStorageFactory.getjobs()
 
   # if vm.jobs == []
-  vm.jobs ?= [
-    new Job(command: "Test Job One")
-    new Job(command: "Test Job Two", dyno_size: Job.DYNO_SIZES.slice(-1)[0].value, frequency: Job.FREQUENCIES.slice(-1)[0].value)
-  ]
+  # vm.jobs ?= [
+  #   new Job(command: "Test Job One")
+  #   new Job(command: "Test Job Two", dyno_size: Job.DYNO_SIZES.slice(-1)[0].value, frequency: Job.FREQUENCIES.slice(-1)[0].value)
+  # ]
 
   vm.addJob = ->
     # TODO validate

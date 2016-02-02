@@ -14,15 +14,15 @@
 # Handles local storage of the list of jobs
 ###
 angular.module('scheduler')
-.factory 'jobStorageFactory', ->
+.factory 'jobStorageFactory', (localStorageService) ->
   jobList = {}
   {
     list: jobList
     updatejobs: (jobsArr) ->
-      if window.localStorage and jobsArr
-        localStorage.setItem 'jobs', angular.toJson(jobsArr)
+      if jobsArr
+        localStorageService.set 'jobs', angular.toJson(jobsArr)
       jobList = jobsArr
     getjobs: ->
-      jobList = angular.fromJson(localStorage.getItem('jobs'))
+      jobList = angular.fromJson(localStorageService.get('jobs'))
       if jobList then jobList else []
   }
