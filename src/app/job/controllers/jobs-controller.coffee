@@ -7,34 +7,43 @@
 # Controller of the scheduler
 ###
 angular.module('scheduler')
-.controller 'jobsCtrl', [
-  '$scope'
-  'jobStorageFactory'
-  'Job'
-  ($scope, jobStorageFactory, Job) ->
+  .controller 'jobsCtrl', [
+    'jobStorageFactory'
+    'Job'
+    '$log'
+    (jobStorageFactory, Job, $log) ->
+      $log.error "hohoho"
+      vm = this
+      vm.dyno_sizes = Job.DYNO_SIZES
 
-    $scope.jobs = jobStorageFactory.getjobs()
+      $log.error vm.dyno_sizes
 
-    if $scope.jobs == []
-      $scope.jobs = [
+
+      # vm.jobs = jobStorageFactory.getjobs()
+
+      # if vm.jobs == []
+      vm.jobs = [
         new Job(command: "Test Job One")
         new Job(command: "Test Job Two", dyno_size: Job.DYNO_SIZES.slice(-1)[0], frequency: Job.FREQUENCIES.slice(-1)[0])
       ]
 
-    $scope.count = $scope.jobs.length
+      vm.count = vm.jobs.length
 
-    $scope.addJob = ->
-      $scope.jobs.push(
-        new Job(command: $scope.command, dyno_size: $scope.dyno_size, frequency: $scope.frequency)
-      )
-      jobStorageFactory.updatejobs $scope.jobs
-      $scope.command = ''
-      $scope.dyno_size = Job.DYNO_SIZES[0]
-      $scope.frequency = Job.FREQUENCIES[0]
-      $scope.count = $scope.jobs.length
+      vm.addJob = ->
+        vm.jobs.push(
+          new Job(command: vm.command, dyno_size: vm.dyno_size, frequency: vm.frequency)
+        )
+        jobStorageFactory.updatejobs vm.jobs
+        vm.command = ''
+        vm.dyno_size = Job.DYNO_SIZES[0]
+        vm.frequency = Job.FREQUENCIES[0]
+        vm.count = vm.jobs.length
 
-    $scope.deleteJob = (job) ->
-      $scope.jobs.splice $scope.jobs.indexOf(job), 1
-      jobStorageFactory.updatejobs $scope.jobs
-      $scope.count = $scope.jobs.length
-]
+      vm.deleteJob = (job) ->
+        vm.jobs.splice vm.jobs.indexOf(job), 1
+        jobStorageFactory.updatejobs vm.jobs
+        vm.count = vm.jobs.length
+
+      vm # for some reason, you need to return 'this' for 'controller as' usage
+      # however, this doesn't apply to main.controller?  TODO figure out why?
+  ]

@@ -57,8 +57,9 @@ angular.module 'scheduler'
     #   vm.count = vm.jobs.length
 
     vm.awesomeThings = []
-    getJobs()
-    vm.dyno_sizes = Job.DYNO_SIZES
+    # vm.jobs = []
+    # getJobs()
+    # vm.dyno_sizes = Job.DYNO_SIZES
     vm.classAnimation = ''
     vm.creationDate = 1453535716432
     vm.showToastr = showToastr

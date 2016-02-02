@@ -1,6 +1,7 @@
 path = require('path')
 gulp = require('gulp')
 conf = require('./conf')
+print = require('gulp-print')
 $ = require('gulp-load-plugins')()
 wiredep = require('wiredep').stream
 _ = require('lodash')
@@ -19,7 +20,7 @@ gulp.task 'inject', [
     path.join(conf.paths.tmp, '/serve/app/**/*.js')
     path.join('!' + conf.paths.src, '/app/**/*.spec.js')
     path.join('!' + conf.paths.src, '/app/**/*.mock.js')
-  ]).pipe($.angularFilesort()).on('error', conf.errorHandler('AngularFilesort'))
+  ]).pipe($.angularFilesort()).on('error', conf.errorHandler('AngularFilesort')).pipe(print())
   injectOptions =
     ignorePath: [
       conf.paths.src
