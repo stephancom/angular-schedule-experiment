@@ -36,11 +36,18 @@ angular.module('scheduler')
     vm.frequency = Job.FREQUENCIES[0].value
     vm.count = vm.jobs.length
 
-  vm.deleteJob = (job) ->
-    vm.jobs.splice vm.jobs.indexOf(job), 1
+  vm.removeJob = (jobIndex) ->
+    vm.jobs.splice jobIndex, 1
     jobStorageFactory.updatejobs vm.jobs
     vm.count = vm.jobs.length
 
+  vm.editJob = (job) ->
+    # TODO
+    job.command = vm.command
+    job.dyno_size = vm.dyno_size
+    job.frequency = vm.frequency
+    jobStorageFactory.updatejobs vm.jobs
+    vm.count = vm.jobs.length
 
   vm.dyno_sizes = Job.DYNO_SIZES
   vm.frequencies = Job.FREQUENCIES

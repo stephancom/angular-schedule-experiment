@@ -3,7 +3,7 @@
     acme-navbar(creation-date='main.creationDate')
   .row(ng-controller="jobsCtrl as jobs")
     .col-sm-12(ng-repeat="job in jobs.jobs")
-      scheduler-job(job="job")
+      scheduler-job(job="job" remove-job='jobs.removeJob()')
     
     //- I kind of don't like having the form here (more or less) duplicated from the one in job.jade
     //- I could and should probably share it.
