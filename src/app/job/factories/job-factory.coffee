@@ -14,7 +14,7 @@
 # Represents a single job
 ###
 angular.module('scheduler')
-.factory 'Job', (moment, $log) ->
+.factory 'Job', (moment) ->
   'ngInject'
   class Job
     @DYNO_SIZES = [
@@ -35,9 +35,6 @@ angular.module('scheduler')
 
     constructor: ({@command = '', @dyno_size = Job.DYNO_SIZES[0].value, @frequency = Job.FREQUENCIES[0].value, @last_run}) ->
       @last_run ?= Date.now()
-      # @dyno_size = @dyno_size || Job.DYNO_SIZES[0].value
-      # @frequency = @frequency || Job.FREQUENCIES[0].value
-      # @last_run = null
 
     next_due: ->
       moment(@last_run).add(@frequency, 'm')
